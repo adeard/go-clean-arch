@@ -14,6 +14,8 @@ func NewRouter(e *echo.Echo, c controller.AppController) *echo.Echo {
 	e.Use(log.MiddlewareLogging)
 
 	e.GET("/users", func(context echo.Context) error { return c.GetUsers(context) })
+	e.GET("/users/:id", func(context echo.Context) error { return c.GetUserById(context) })
+	e.PUT("/users/:id", func(context echo.Context) error { return c.UpdateUser(context) })
 
 	return e
 }
