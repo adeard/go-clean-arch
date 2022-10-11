@@ -56,11 +56,17 @@ func (ur *userRepository) UpdateUserById(u []*model.User, id int, c echo.Context
 	user := new(model.User)
 	user.Email = c.FormValue("email")
 
-	result := ur.db.Model(u).Where("id = ?", id).Updates(user)
+	result := ur.db.Model(u).Where("id = ?", id).Updates(&user)
 
 	if result.Error != nil {
 		return nil, result.Error
 	}
 
-	return u, nil
+	updated, error := ur.GetUserById(u, id)
+
+	if error != nil {
+		return nil, error
+	}
+
+	return updated, nil
 }
