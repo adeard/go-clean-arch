@@ -3,7 +3,7 @@ package repository
 import (
 	"go-clean-arch/domain/model"
 
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 )
 
 type UserRepository interface {

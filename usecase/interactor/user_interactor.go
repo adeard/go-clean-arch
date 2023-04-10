@@ -5,7 +5,7 @@ import (
 	"go-clean-arch/usecase/presenter"
 	"go-clean-arch/usecase/repository"
 
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 )
 
 type userInteractor struct {
