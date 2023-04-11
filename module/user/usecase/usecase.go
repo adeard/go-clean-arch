@@ -1,7 +1,7 @@
 package user
 
 import (
-	"go-clean-arch/domain/model"
+	"go-clean-arch/model"
 	user "go-clean-arch/module/user/interface"
 
 	"net/http"
@@ -14,7 +14,7 @@ type userController struct {
 	userInteractor user.Handler
 }
 
-func NewUserController(us user.Handler) user.Usecase {
+func NewUserUsecase(us user.Handler) user.Usecase {
 	return &userController{us}
 }
 

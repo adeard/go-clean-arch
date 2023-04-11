@@ -1,7 +1,7 @@
 package registry
 
 import (
-	"go-clean-arch/interface/controller"
+	"go-clean-arch/module"
 
 	"github.com/jinzhu/gorm"
 )
@@ -11,13 +11,13 @@ type registry struct {
 }
 
 type Registry interface {
-	NewAppUsecase() controller.AppController
+	NewAppUsecase() module.AppUsecase
 }
 
 func NewRegistry(db *gorm.DB) Registry {
 	return &registry{db}
 }
 
-func (r *registry) NewAppUsecase() controller.AppController {
-	return r.NewUserController()
+func (r *registry) NewAppUsecase() module.AppUsecase {
+	return r.NewUserUsecase()
 }

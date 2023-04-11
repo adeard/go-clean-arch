@@ -1,7 +1,7 @@
 package user
 
 import (
-	"go-clean-arch/domain/model"
+	"go-clean-arch/model"
 	user "go-clean-arch/module/user/interface"
 
 	"github.com/labstack/echo/v4"

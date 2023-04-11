@@ -1,14 +1,14 @@
 package user
 
 import (
-	"go-clean-arch/interface/controller"
 	"go-clean-arch/log"
+	"go-clean-arch/module"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
 
-func UserRoutes(e *echo.Echo, c controller.AppController) *echo.Echo {
+func UserRoutes(e *echo.Echo, c module.AppUsecase) *echo.Echo {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 	e.Use(log.MiddlewareLogging)

@@ -10,8 +10,8 @@ import (
 	userRepository "go-clean-arch/module/user/repository"
 )
 
-func (r *registry) NewUserController() userInterface.Usecase {
-	return userUsecase.NewUserController(r.NewUserInteractor())
+func (r *registry) NewUserUsecase() userInterface.Usecase {
+	return userUsecase.NewUserUsecase(r.NewUserInteractor())
 }
 
 func (r *registry) NewUserInteractor() userInterface.Handler {
