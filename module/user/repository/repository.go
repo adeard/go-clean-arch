@@ -1,4 +1,4 @@
-package repository
+package user
 
 import (
 	"go-clean-arch/domain/model"

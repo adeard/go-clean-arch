@@ -11,13 +11,13 @@ type registry struct {
 }
 
 type Registry interface {
-	NewAppController() controller.AppController
+	NewAppUsecase() controller.AppController
 }
 
 func NewRegistry(db *gorm.DB) Registry {
 	return &registry{db}
 }
 
-func (r *registry) NewAppController() controller.AppController {
+func (r *registry) NewAppUsecase() controller.AppController {
 	return r.NewUserController()
 }

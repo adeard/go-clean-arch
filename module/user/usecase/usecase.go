@@ -1,8 +1,9 @@
-package controller
+package user
 
 import (
 	"go-clean-arch/domain/model"
-	"go-clean-arch/usecase/interactor"
+	user "go-clean-arch/module/user/interface"
+
 	"net/http"
 	"strconv"
 
@@ -10,17 +11,10 @@ import (
 )
 
 type userController struct {
-	userInteractor interactor.UserInteractor
+	userInteractor user.Handler
 }
 
-type UserController interface {
-	GetUsers(c echo.Context) error
-	GetUsersByEmail(c echo.Context) error
-	GetUserById(c echo.Context) error
-	UpdateUser(c echo.Context) error
-}
-
-func NewUserController(us interactor.UserInteractor) UserController {
+func NewUserController(us user.Handler) user.Usecase {
 	return &userController{us}
 }
 

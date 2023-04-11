@@ -1,31 +1,27 @@
 package registry
 
 import (
-	"go-clean-arch/interface/controller"
+	userUsecase "go-clean-arch/module/user/usecase"
 
-	ip "go-clean-arch/interface/presenters"
+	userInterface "go-clean-arch/module/user/interface"
 
-	ir "go-clean-arch/interface/repository"
+	userDelivery "go-clean-arch/module/user/delivery"
 
-	"go-clean-arch/usecase/interactor"
-
-	up "go-clean-arch/usecase/presenter"
-
-	ur "go-clean-arch/usecase/repository"
+	userRepository "go-clean-arch/module/user/repository"
 )
 
-func (r *registry) NewUserController() controller.UserController {
-	return controller.NewUserController(r.NewUserInteractor())
+func (r *registry) NewUserController() userInterface.Usecase {
+	return userUsecase.NewUserController(r.NewUserInteractor())
 }
 
-func (r *registry) NewUserInteractor() interactor.UserInteractor {
-	return interactor.NewUserInteractor(r.NewUserRepository(), r.NewUserPresenter())
+func (r *registry) NewUserInteractor() userInterface.Handler {
+	return userDelivery.NewUserHandlers(r.NewUserRepository(), r.NewUserPresenter())
 }
 
-func (r *registry) NewUserRepository() ur.UserRepository {
-	return ir.NewUserRepository(r.db)
+func (r *registry) NewUserRepository() userInterface.Repository {
+	return userRepository.NewUserRepository(r.db)
 }
 
-func (r *registry) NewUserPresenter() up.UserPresenter {
-	return ip.NewUserPresenter()
+func (r *registry) NewUserPresenter() userInterface.Presenter {
+	return userDelivery.NewUserPresenter()
 }

@@ -1,5 +1,7 @@
 package controller
 
+import user "go-clean-arch/module/user/interface"
+
 type AppController interface {
-	UserController
+	user.Usecase
 }

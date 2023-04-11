@@ -1,15 +1,14 @@
-package presenter
+package user
 
-import "go-clean-arch/domain/model"
+import (
+	"go-clean-arch/domain/model"
+	user "go-clean-arch/module/user/interface"
+)
 
 type userPresenter struct {
 }
 
-type UserPresenter interface {
-	ResponseUsers(us []*model.User) []*model.User
-}
-
-func NewUserPresenter() UserPresenter {
+func NewUserPresenter() user.Presenter {
 	return &userPresenter{}
 }
 

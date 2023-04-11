@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"go-clean-arch/config"
 	"go-clean-arch/datastore"
+	user "go-clean-arch/module/user/delivery"
 	"go-clean-arch/registry"
-	"go-clean-arch/router"
 	"log"
 
 	_ "github.com/jinzhu/gorm/dialects/mysql"
@@ -22,7 +22,7 @@ func main() {
 	r := registry.NewRegistry(db)
 
 	e := echo.New()
-	e = router.NewRouter(e, r.NewAppController())
+	e = user.UserRoutes(e, r.NewAppUsecase())
 
 	fmt.Println("Server listen at http://localhost" + ":" + config.C.Server.Address)
 	if err := e.Start(":" + config.C.Server.Address); err != nil {
