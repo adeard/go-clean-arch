@@ -16,13 +16,13 @@ func NewUserHandlers(r user.Repository, p user.Presenter) user.Handler {
 	return &userHandlers{r, p}
 }
 
-func (us *userHandlers) Get(u []*model.User) ([]*model.User, error) {
+func (us *userHandlers) Get(u []*model.User) (*model.UserList, error) {
 	u, err := us.UserRepository.FindAll(u)
 	if err != nil {
 		return nil, err
 	}
 
-	return us.UserPresenter.ResponseUsers(u), nil
+	return us.UserPresenter.ResponseUsersList(u), nil
 }
 
 func (us *userHandlers) GetUserByEmail(u []*model.User, email string) ([]*model.User, error) {

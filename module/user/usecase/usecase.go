@@ -10,18 +10,18 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-type userController struct {
-	userInteractor user.Handler
+type userUsecase struct {
+	userHandler user.Handler
 }
 
 func NewUserUsecase(us user.Handler) user.Usecase {
-	return &userController{us}
+	return &userUsecase{us}
 }
 
-func (uc *userController) GetUsers(c echo.Context) error {
-	var u []*model.User
+func (uc *userUsecase) GetUsers(c echo.Context) error {
+	var users []*model.User
 
-	u, err := uc.userInteractor.Get(u)
+	u, err := uc.userHandler.Get(users)
 	if err != nil {
 		return err
 	}
@@ -29,10 +29,10 @@ func (uc *userController) GetUsers(c echo.Context) error {
 	return c.JSON(http.StatusOK, u)
 }
 
-func (uc *userController) GetUsersByEmail(c echo.Context) error {
+func (uc *userUsecase) GetUsersByEmail(c echo.Context) error {
 	var u []*model.User
 
-	u, err := uc.userInteractor.GetUserByEmail(u, c.Param("email"))
+	u, err := uc.userHandler.GetUserByEmail(u, c.Param("email"))
 	if err != nil {
 		return err
 	}
@@ -40,11 +40,11 @@ func (uc *userController) GetUsersByEmail(c echo.Context) error {
 	return c.JSON(http.StatusOK, u)
 }
 
-func (uc *userController) GetUserById(c echo.Context) error {
+func (uc *userUsecase) GetUserById(c echo.Context) error {
 	var u []*model.User
 	var id, _ = strconv.Atoi(c.Param("id"))
 
-	u, err := uc.userInteractor.GetUserById(u, id)
+	u, err := uc.userHandler.GetUserById(u, id)
 	if err != nil {
 		return err
 	}
@@ -52,11 +52,11 @@ func (uc *userController) GetUserById(c echo.Context) error {
 	return c.JSON(http.StatusOK, u)
 }
 
-func (uc *userController) UpdateUser(c echo.Context) error {
+func (uc *userUsecase) UpdateUser(c echo.Context) error {
 	var u []*model.User
 	var id, _ = strconv.Atoi(c.Param("id"))
 
-	u, err := uc.userInteractor.UpdateUserById(u, id, c)
+	u, err := uc.userHandler.UpdateUserById(u, id, c)
 	if err != nil {
 		return err
 	}

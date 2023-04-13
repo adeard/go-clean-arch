@@ -18,3 +18,25 @@ func (up *userPresenter) ResponseUsers(us []*model.User) []*model.User {
 	}
 	return us
 }
+
+func (up *userPresenter) ResponseUsersList(us []*model.User) *model.UserList {
+
+	result := &model.UserList{
+		Status:   200,
+		ErrorMsg: " ",
+		Data:     us,
+	}
+
+	return result
+}
+
+func (up *userPresenter) ResponseUsersDetail(us *model.User) *model.UserDetail {
+
+	result := &model.UserDetail{
+		Status:   200,
+		ErrorMsg: " ",
+		Data:     us,
+	}
+
+	return result
+}

@@ -12,4 +12,17 @@ type User struct {
 	DeletedAt time.Time `json:"deleted_at"`
 }
 
+// All News response
+type UserList struct {
+	Status   int     `json:"status"`
+	ErrorMsg string  `json:"error_msg"`
+	Data     []*User `json:"data"`
+}
+
+type UserDetail struct {
+	Status   int    `json:"status"`
+	ErrorMsg string `json:"error_msg"`
+	Data     *User  `json:"data"`
+}
+
 func (User) TableName() string { return "users" }

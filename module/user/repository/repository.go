@@ -2,6 +2,7 @@ package user
 
 import (
 	"go-clean-arch/model"
+	user "go-clean-arch/module/user/interface"
 
 	"github.com/jinzhu/gorm"
 	"github.com/labstack/echo/v4"
@@ -11,26 +12,41 @@ type userRepository struct {
 	db *gorm.DB
 }
 
-type UserRepository interface {
-	FindAll(u []*model.User) ([]*model.User, error)
-	GetUserByEmail(u []*model.User, email string) ([]*model.User, error)
-	GetUserById(u []*model.User, id int) ([]*model.User, error)
-	UpdateUserById(u []*model.User, id int, c echo.Context) ([]*model.User, error)
-}
-
-func NewUserRepository(db *gorm.DB) UserRepository {
+func NewUserRepository(db *gorm.DB) user.Repository {
 	return &userRepository{db}
 }
 
 func (ur *userRepository) FindAll(u []*model.User) ([]*model.User, error) {
 	err := ur.db.Find(&u).Error
-
 	if err != nil {
 		return nil, err
 	}
 
+	// result := &model.UserList{
+	// 	Status:   200,
+	// 	ErrorMsg: " ",
+	// 	Data:     u,
+	// }
+
 	return u, nil
 }
+
+// func (ur *userRepository) FindAll(u []*model.User) ([]*model.User, error) {
+// 	err := ur.db.Find(&u).Error
+// 	if err != nil {
+// 		return nil, err
+// 	}
+
+// 	testVar := &model.UserList{
+// 		Status:   200,
+// 		ErrorMsg: " ",
+// 		Data:     u,
+// 	}
+
+// 	debug.Dd(testVar)
+
+// 	return u, nil
+// }
 
 func (ur *userRepository) GetUserByEmail(u []*model.User, email string) ([]*model.User, error) {
 	result := ur.db.Where("email = ?", email).First(&u)
