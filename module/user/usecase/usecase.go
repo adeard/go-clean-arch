@@ -41,10 +41,10 @@ func (uc *userUsecase) GetUsersByEmail(c echo.Context) error {
 }
 
 func (uc *userUsecase) GetUserById(c echo.Context) error {
-	var u []*model.User
+	var user []*model.User
 	var id, _ = strconv.Atoi(c.Param("id"))
 
-	u, err := uc.userHandler.GetUserById(u, id)
+	u, err := uc.userHandler.GetUserById(user, id)
 	if err != nil {
 		return err
 	}
@@ -53,10 +53,10 @@ func (uc *userUsecase) GetUserById(c echo.Context) error {
 }
 
 func (uc *userUsecase) UpdateUser(c echo.Context) error {
-	var u []*model.User
+	var user []*model.User
 	var id, _ = strconv.Atoi(c.Param("id"))
 
-	u, err := uc.userHandler.UpdateUserById(u, id, c)
+	u, err := uc.userHandler.UpdateUserById(user, id, c)
 	if err != nil {
 		return err
 	}

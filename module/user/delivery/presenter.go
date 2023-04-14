@@ -30,7 +30,7 @@ func (up *userPresenter) ResponseUsersList(us []*model.User) *model.UserList {
 	return result
 }
 
-func (up *userPresenter) ResponseUsersDetail(us *model.User) *model.UserDetail {
+func (up *userPresenter) ResponseUsersDetail(us []*model.User) *model.UserDetail {
 
 	result := &model.UserDetail{
 		Status:   200,

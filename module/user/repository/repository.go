@@ -3,6 +3,7 @@ package user
 import (
 	"go-clean-arch/model"
 	user "go-clean-arch/module/user/interface"
+	"go-clean-arch/pkg/debug"
 
 	"github.com/jinzhu/gorm"
 	"github.com/labstack/echo/v4"
@@ -22,31 +23,8 @@ func (ur *userRepository) FindAll(u []*model.User) ([]*model.User, error) {
 		return nil, err
 	}
 
-	// result := &model.UserList{
-	// 	Status:   200,
-	// 	ErrorMsg: " ",
-	// 	Data:     u,
-	// }
-
 	return u, nil
 }
-
-// func (ur *userRepository) FindAll(u []*model.User) ([]*model.User, error) {
-// 	err := ur.db.Find(&u).Error
-// 	if err != nil {
-// 		return nil, err
-// 	}
-
-// 	testVar := &model.UserList{
-// 		Status:   200,
-// 		ErrorMsg: " ",
-// 		Data:     u,
-// 	}
-
-// 	debug.Dd(testVar)
-
-// 	return u, nil
-// }
 
 func (ur *userRepository) GetUserByEmail(u []*model.User, email string) ([]*model.User, error) {
 	result := ur.db.Where("email = ?", email).First(&u)
@@ -60,6 +38,8 @@ func (ur *userRepository) GetUserByEmail(u []*model.User, email string) ([]*mode
 
 func (ur *userRepository) GetUserById(u []*model.User, id int) ([]*model.User, error) {
 	result := ur.db.Where("id = ?", id).First(&u)
+
+	debug.Dd(u)
 
 	if result.Error != nil {
 		return nil, result.Error

@@ -34,20 +34,20 @@ func (us *userHandlers) GetUserByEmail(u []*model.User, email string) ([]*model.
 	return us.UserPresenter.ResponseUsers(u), nil
 }
 
-func (us *userHandlers) GetUserById(u []*model.User, id int) ([]*model.User, error) {
+func (us *userHandlers) GetUserById(u []*model.User, id int) (*model.UserDetail, error) {
 	u, err := us.UserRepository.GetUserById(u, id)
 	if err != nil {
 		return nil, err
 	}
 
-	return us.UserPresenter.ResponseUsers(u), nil
+	return us.UserPresenter.ResponseUsersDetail(u), nil
 }
 
-func (us *userHandlers) UpdateUserById(u []*model.User, id int, c echo.Context) ([]*model.User, error) {
-	u, err := us.UserRepository.UpdateUserById(u, id, c)
+func (us *userHandlers) UpdateUserById(u []*model.User, id int, c echo.Context) (*model.UserDetail, error) {
+	update, err := us.UserRepository.UpdateUserById(u, id, c)
 	if err != nil {
 		return nil, err
 	}
 
-	return us.UserPresenter.ResponseUsers(u), nil
+	return us.UserPresenter.ResponseUsersDetail(update), nil
 }
