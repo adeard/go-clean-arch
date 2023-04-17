@@ -41,7 +41,7 @@ func (uc *userUsecase) GetUsersByEmail(c echo.Context) error {
 }
 
 func (uc *userUsecase) GetUserById(c echo.Context) error {
-	var user []*model.User
+	var user *model.User
 	var id, _ = strconv.Atoi(c.Param("id"))
 
 	u, err := uc.userHandler.GetUserById(user, id)
@@ -53,7 +53,7 @@ func (uc *userUsecase) GetUserById(c echo.Context) error {
 }
 
 func (uc *userUsecase) UpdateUser(c echo.Context) error {
-	var user []*model.User
+	var user *model.User
 	var id, _ = strconv.Atoi(c.Param("id"))
 
 	u, err := uc.userHandler.UpdateUserById(user, id, c)

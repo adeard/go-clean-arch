@@ -3,7 +3,6 @@ package user
 import (
 	"go-clean-arch/model"
 	user "go-clean-arch/module/user/interface"
-	"go-clean-arch/pkg/debug"
 
 	"github.com/jinzhu/gorm"
 	"github.com/labstack/echo/v4"
@@ -36,10 +35,11 @@ func (ur *userRepository) GetUserByEmail(u []*model.User, email string) ([]*mode
 	return u, nil
 }
 
-func (ur *userRepository) GetUserById(u []*model.User, id int) ([]*model.User, error) {
-	result := ur.db.Where("id = ?", id).First(&u)
+func (ur *userRepository) GetUserById(u *model.User, id int) (*model.User, error) {
 
-	debug.Dd(u)
+	u = &model.User{}
+
+	result := ur.db.Where("id = ?", id).First(&u)
 
 	if result.Error != nil {
 		return nil, result.Error
@@ -47,7 +47,7 @@ func (ur *userRepository) GetUserById(u []*model.User, id int) ([]*model.User, e
 	return u, nil
 }
 
-func (ur *userRepository) UpdateUserById(u []*model.User, id int, c echo.Context) ([]*model.User, error) {
+func (ur *userRepository) UpdateUserById(u *model.User, id int, c echo.Context) (*model.User, error) {
 	user := new(model.User)
 	user.Email = c.FormValue("email")
 
