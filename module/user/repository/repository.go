@@ -44,7 +44,6 @@ func (ur *userRepository) GetUserById(u []*model.User, id int) ([]*model.User, e
 	if result.Error != nil {
 		return nil, result.Error
 	}
-
 	return u, nil
 }
 

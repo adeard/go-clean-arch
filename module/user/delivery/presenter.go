@@ -35,7 +35,7 @@ func (up *userPresenter) ResponseUsersDetail(us []*model.User) *model.UserDetail
 	result := &model.UserDetail{
 		Status:   200,
 		ErrorMsg: " ",
-		Data:     us,
+		Data:     us[0],
 	}
 
 	return result

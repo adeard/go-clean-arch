@@ -20,9 +20,9 @@ type UserList struct {
 }
 
 type UserDetail struct {
-	Status   int     `json:"status"`
-	ErrorMsg string  `json:"error_msg"`
-	Data     []*User `json:"data"`
+	Status   int    `json:"status"`
+	ErrorMsg string `json:"error_msg"`
+	Data     *User  `json:"data"`
 }
 
 func (User) TableName() string { return "users" }
