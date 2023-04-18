@@ -49,9 +49,10 @@ func (ur *userRepository) GetUserById(u *model.User, id int) (*model.User, error
 
 func (ur *userRepository) UpdateUserById(u *model.User, id int, c echo.Context) (*model.User, error) {
 	user := new(model.User)
+	user.Nama = c.FormValue("nama")
 	user.Email = c.FormValue("email")
 
-	result := ur.db.Model(u).Where("id = ?", id).Updates(&user)
+	result := ur.db.Model(&model.User{}).Where("id = ?", id).Updates(&user)
 
 	if result.Error != nil {
 		return nil, result.Error
