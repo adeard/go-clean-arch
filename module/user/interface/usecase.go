@@ -10,4 +10,5 @@ type Usecase interface {
 	GetUsersByEmail(c echo.Context) error
 	GetUserById(c echo.Context) error
 	UpdateUser(c echo.Context) error
+	CreateUser(c echo.Context) error
 }

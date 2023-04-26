@@ -12,4 +12,5 @@ type Handler interface {
 	GetUserByEmail(u []*model.User, email string) ([]*model.User, error)
 	GetUserById(u *model.User, id int) (*model.UserDetail, error)
 	UpdateUserById(u *model.User, id int, c echo.Context) (*model.UserDetail, error)
+	CreateUser(u *model.User, c echo.Context) (*model.UserDetail, error)
 }

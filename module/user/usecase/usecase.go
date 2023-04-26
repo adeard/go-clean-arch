@@ -63,3 +63,18 @@ func (uc *userUsecase) UpdateUser(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, u)
 }
+
+func (uc *userUsecase) CreateUser(c echo.Context) error {
+	var user *model.User
+
+	// if error := c.Validate(user); error != nil {
+	// 	return error
+	// }
+
+	u, err := uc.userHandler.CreateUser(user, c)
+	if err != nil {
+		return err
+	}
+
+	return c.JSON(http.StatusOK, u)
+}

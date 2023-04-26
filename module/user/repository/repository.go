@@ -66,3 +66,23 @@ func (ur *userRepository) UpdateUserById(u *model.User, id int, c echo.Context) 
 
 	return updated, nil
 }
+
+func (ur *userRepository) CreateUser(u *model.User, c echo.Context) (*model.User, error) {
+	user := new(model.User)
+	user.Nama = c.FormValue("nama")
+	user.Email = c.FormValue("email")
+
+	result := ur.db.Model(&model.User{}).Select("Nama", "Email", "CreatedAt", "UpdatedAt").Create(&user)
+
+	if result.Error != nil {
+		return nil, result.Error
+	}
+
+	created, error := ur.GetUserById(u, int(user.ID))
+
+	if error != nil {
+		return nil, error
+	}
+
+	return created, nil
+}

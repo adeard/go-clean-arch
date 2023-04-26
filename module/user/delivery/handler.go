@@ -51,3 +51,12 @@ func (us *userHandlers) UpdateUserById(u *model.User, id int, c echo.Context) (*
 
 	return us.UserPresenter.ResponseUsersDetail(update), nil
 }
+
+func (us *userHandlers) CreateUser(u *model.User, c echo.Context) (*model.UserDetail, error) {
+	update, err := us.UserRepository.CreateUser(u, c)
+	if err != nil {
+		return nil, err
+	}
+
+	return us.UserPresenter.ResponseUsersDetail(update), nil
+}
