@@ -7,12 +7,15 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo/v4"
 )
 
 type userUsecase struct {
 	userHandler user.Handler
 }
+
+// var validate *validator.Validate
 
 func NewUserUsecase(us user.Handler) user.Usecase {
 	return &userUsecase{us}
@@ -66,10 +69,30 @@ func (uc *userUsecase) UpdateUser(c echo.Context) error {
 
 func (uc *userUsecase) CreateUser(c echo.Context) error {
 	var user *model.User
+	var userNew = new(model.User)
 
-	// if error := c.Validate(user); error != nil {
-	// 	return error
-	// }
+	userNew.Email = c.FormValue("email")
+	userNew.Nama = c.FormValue("nama")
+
+	validate := validator.New()
+
+	err := validate.Struct(userNew)
+	if err != nil {
+
+		var result = new(model.UserDetail)
+
+		result.Status = http.StatusBadRequest
+
+		if _, ok := err.(*validator.InvalidValidationError); ok {
+			result.ErrorMsg = err.Error()
+		}
+
+		for _, err := range err.(validator.ValidationErrors) {
+			result.ErrorMsg = err.Field() + " is " + err.Tag() + " and must be " + err.Kind().String()
+		}
+
+		return c.JSON(http.StatusBadRequest, result)
+	}
 
 	u, err := uc.userHandler.CreateUser(user, c)
 	if err != nil {

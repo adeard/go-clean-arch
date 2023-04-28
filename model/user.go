@@ -4,8 +4,8 @@ import "time"
 
 type User struct {
 	ID    uint   `gorm:"primary_key" json:"id"`
-	Nama  string `json:"nama"`
-	Email string `json:"email"`
+	Nama  string `json:"nama" validate:"required"`
+	Email string `json:"email" validate:"required,email"`
 	// Password  string    `json:"password"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
