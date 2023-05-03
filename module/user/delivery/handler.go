@@ -25,13 +25,13 @@ func (us *userHandlers) Get(u []*model.User) (*model.UserList, error) {
 	return us.UserPresenter.ResponseUsersList(u), nil
 }
 
-func (us *userHandlers) GetUserByEmail(u []*model.User, email string) ([]*model.User, error) {
+func (us *userHandlers) GetUserByEmail(u *model.User, email string) (*model.UserDetail, error) {
 	u, err := us.UserRepository.GetUserByEmail(u, email)
 	if err != nil {
 		return nil, err
 	}
 
-	return us.UserPresenter.ResponseUsers(u), nil
+	return us.UserPresenter.ResponseUsersDetail(u), nil
 }
 
 func (us *userHandlers) GetUserById(u *model.User, id int) (*model.UserDetail, error) {

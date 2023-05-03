@@ -35,7 +35,7 @@ func ReadConfig() {
 
 	viper.SetConfigName("config")
 	viper.SetConfigType("yml")
-	viper.AddConfigPath(filepath.Join("$GOPATH", "opt", "homebrew", "var", "www", "go", "src", "go-clean-arch", "config"))
+	viper.AddConfigPath(filepath.Join("$GOPATH", "var", "www", "html", "go-clean-arch", "config"))
 	viper.AutomaticEnv()
 
 	if err := viper.ReadInConfig(); err != nil {

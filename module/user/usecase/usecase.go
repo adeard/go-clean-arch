@@ -15,8 +15,6 @@ type userUsecase struct {
 	userHandler user.Handler
 }
 
-// var validate *validator.Validate
-
 func NewUserUsecase(us user.Handler) user.Usecase {
 	return &userUsecase{us}
 }
@@ -25,17 +23,6 @@ func (uc *userUsecase) GetUsers(c echo.Context) error {
 	var users []*model.User
 
 	u, err := uc.userHandler.Get(users)
-	if err != nil {
-		return err
-	}
-
-	return c.JSON(http.StatusOK, u)
-}
-
-func (uc *userUsecase) GetUsersByEmail(c echo.Context) error {
-	var u []*model.User
-
-	u, err := uc.userHandler.GetUserByEmail(u, c.Param("email"))
 	if err != nil {
 		return err
 	}
@@ -96,7 +83,13 @@ func (uc *userUsecase) CreateUser(c echo.Context) error {
 
 	u, err := uc.userHandler.CreateUser(user, c)
 	if err != nil {
-		return err
+
+		var result = new(model.UserDetail)
+
+		result.Status = http.StatusBadRequest
+		result.ErrorMsg = err.Error()
+
+		return c.JSON(http.StatusBadRequest, result)
 	}
 
 	return c.JSON(http.StatusOK, u)

@@ -1,6 +1,6 @@
 database:
-  user: root
-  password: 
+  user: adeardian
+  password: '@De199429'
   net: tcp
   addr: 127.0.0.1:3306
   dbname: go-echo
